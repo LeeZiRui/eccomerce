@@ -8,3 +8,4 @@ Route::resource('tags','TagController');
 Route::resource('products','ProductController');
 Route::resource('product_props','ProductPropController');
 Route::resource('product_images','ProductImageController');
+Route::resource('sliders','SliderController');

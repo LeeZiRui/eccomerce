@@ -12,8 +12,11 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
-Route::get('/', function () {
-    return view('welcome');
-});
 Route::view('/admin','admin.index');
+
+##### front
+Route::view('/','front.home.index');
+Route::get('local',function (){
+    session(['local'=>request('local')]);
+    return redirect('/');
+});

@@ -190,6 +190,12 @@
                             </a>
                         </li>
                         <li class="nav-item">
+                            <a href="{{route('admin.sliders.index')}}" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>سلايدر</p>
+                            </a>
+                        </li>
+                        <li class="nav-item">
                             <a href="{{route('admin.categories.index')}}" class="nav-link">
                                 <i class="fa fa-circle-o nav-icon"></i>
                                 <p>الاقسام</p>
