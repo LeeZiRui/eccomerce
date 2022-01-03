@@ -37,6 +37,14 @@
                         </select>
                     </div>
                     <div class="col-6 form-group">
+                        <label for="">المقاسات</label>
+                        <select name="sizes[]" multiple class="form-control">
+                            @foreach(\App\Models\CategorySize::query()->where('category_id',$item->category_id)->get() as $size)
+                                <option  {{$item->sizes->contains($size) ? "selected" :""}} value="{{$size->id}}">{{$size->value}}</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="col-6 form-group">
                         <label for="">الكمية</label>
                         <input class="form-control" name="quantity" value="{{old('quantity',$item->quantity)}}">
                     </div>

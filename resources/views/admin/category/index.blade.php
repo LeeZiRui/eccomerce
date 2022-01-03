@@ -26,6 +26,7 @@
                             @endif
                         </th>
                         <th>
+                            <a class="btn btn-primary btn-sm" href="{{route('admin.categories.sizes',$item->id)}}">المقاسات</a>
                             <a class="btn btn-info btn-sm" href="{{route('admin.categories.edit',$item->id)}}"><i class="fa fa-edit"></i></a>
                             <button form="delete{{$item->id}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
                             <form id="delete{{$item->id}}" action="{{route('admin.categories.destroy',$item->id)}}" method="post">@csrf @method('delete')</form>

@@ -32,6 +32,7 @@ class ProductController extends Controller
         $product = Product::query()->create($data);
         if ($request->has('tags'))
             $product->tags()->sync($request->get('tags'));
+
         return redirect()->route('admin.products.index');
     }
     public function edit($id){
@@ -48,13 +49,15 @@ class ProductController extends Controller
             'description_en'        =>  'required',
             'main_image'            =>  'nullable|image',
         ]);
-        $data= $request->except('_token','main_image','tags','key_ar','key_en','value_ar','value_en');
+        $data= $request->except('_token','main_image','tags','key_ar','key_en','value_ar','value_en','sizes');
         if ($request->hasFile('main_image'))
             $data['main_image'] = Storage::disk('public')->put('images',$request->file('main_image'));
         $product = Product::query()->find($id);
         $product->update($data);
         if ($request->has('tags'))
             $product->tags()->sync($request->get('tags'));
+        if ($request->has('sizes'))
+            $product->sizes()->sync($request->get('sizes'));
         if ($request->get( 'key_ar' ) and $request->get( 'key_en' ) and $request->get( 'value_ar' ) and $request->get( 'value_en' ))
             $product->props()->create($request->only('key_ar','key_en','value_ar','value_en'));
         return redirect()->route('admin.products.index');

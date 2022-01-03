@@ -15,7 +15,7 @@ use Illuminate\Support\Facades\Route;
 Route::view('/admin','admin.index');
 
 ##### front
-Route::view('/','front.home.index');
+Route::get('/','Front\HomeController@index');
 Route::get('local',function (){
     session(['local'=>request('local')]);
     return redirect('/');

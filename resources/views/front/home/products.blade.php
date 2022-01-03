@@ -8,15 +8,26 @@
 
         <div class="flex-w flex-sb-m p-b-52">
             <div class="flex-w flex-l-m filter-tope-group m-tb-10">
-{{--                 TODO: categories --}}
-                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 how-active1" data-filter="*">
-                    All Products
-                </button>
+                <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 {{(! request()->has('category_id'))?"how-active1" :""}}" href="{{url('/')}}">
+                    كل المنتجات
+                </a>
                 @foreach(\App\Models\Category::all() as $index => $category)
-                <button class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" data-filter=".women">
+                <a href="?category_id={{$category->id}}" class="{{(request()->has('category_id') and request('category_id') == $category->id )?"how-active1" :""}} stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" >
                     {{$category->title_en}}
-                </button>
+                </a>
                 @endforeach
+            </div>
+            <div class="flex-w flex-l-m filter-tope-group m-tb-10">
+                <a class="stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5 {{(! request()->has('size_id'))?"how-active1" :""}}" href="{{url('/?category_id='.request('category_id',''))}}">
+                    كل المقاسات
+                </a>
+                @if(request()->category_id)
+                    @foreach(\App\Models\Category::query()->find(request('category_id'))->sizes as $index => $size)
+                        <a href="?category_id={{request('category_id')}}&size_id={{$size->id}}" class="{{(request()->has('size_id') and request('size_id') == $size->id )?"how-active1" :""}} stext-106 cl6 hov1 bor3 trans-04 m-r-32 m-tb-5" >
+                            {{$size->value}}
+                        </a>
+                    @endforeach
+                @endif
             </div>
 
             <div class="flex-w flex-c-m m-tb-10">
@@ -235,8 +246,7 @@
         </div>
 
         <div class="row isotope-grid">
-{{-- single product --}}
-            @foreach(\App\Models\Product::all() as $index => $product)
+            @foreach($products as $index => $product)
                 <x-product-card :product="$product"/>
             @endforeach
 
