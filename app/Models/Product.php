@@ -21,6 +21,9 @@ class Product extends Model
     public function props(){
         return $this->hasMany(ProductProp::class,'product_id','id');
     }
+    public function colors(){
+        return $this->hasMany(ProductColor::class,'product_id','id');
+    }
     public function images(){
         return $this->hasMany(ProductImage::class,'product_id','id');
     }

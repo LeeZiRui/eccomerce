@@ -45,10 +45,6 @@
                         </select>
                     </div>
                     <div class="col-6 form-group">
-                        <label for="">الكمية</label>
-                        <input class="form-control" name="quantity" value="{{old('quantity',$item->quantity)}}">
-                    </div>
-                    <div class="col-6 form-group">
                         <label for="">السعر</label>
                         <input class="form-control" name="price" value="{{old('price',$item->price)}}">
                     </div>
@@ -93,6 +89,17 @@
                         <input class="form-control" type="text" name="value_en" >
                     </div>
                 </div>
+                <div class="row">
+                    <div class="col-12"><h5>لون جديدة</h5></div>
+                    <div class="form-group col-3">
+                        <label for="">اللون عربي</label>
+                        <input class="form-control" type="text" name="color_ar" >
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="">اللون انجليزي</label>
+                        <input class="form-control" type="text" name="color_en" >
+                    </div>
+                </div>
             </form>
             <div class="row">
                 <div class="col-12"><h5>خصائص المنتج</h5></div>
@@ -135,6 +142,38 @@
                 @endforelse
             </div>
             <div class="row">
+                <div class="col-12"><h5>الوان المنتج</h5></div>
+                @forelse($item->colors as $color)
+                    <form class="col-8" id="updateColor{{$prop->id}}" method="post" action="{{route('admin.product_colors.update',$prop->id)}}">
+                        @csrf
+                        @method('PUT')
+                        <div class="row">
+                            <div class="form-group col-3">
+                                <label for="">اللون عربي</label>
+                                <input class="form-control" type="text" name="color_ar" value="{{$color->color_ar}}">
+                            </div>
+                            <div class="form-group col-3">
+                                <label for="">اللون انجليزي</label>
+                                <input class="form-control" type="text" name="color_en" value="{{$color->color_en}}">
+                            </div>
+                        </div>
+                    </form>
+
+                    <div class="form-group col-4">
+                        <label for="">ادارة</label>
+                        <br>
+                        <button form="updateColor{{$color->id}}" class="btn btn-success btn-sm"><i class="fa fa-check"></i></button>
+                        <button form="deleteColor{{$color->id}}" class="btn btn-danger btn-sm"><i class="fa fa-trash"></i></button>
+                        <form id="deleteColor{{$color->id}}" action="{{route('admin.product_colors.destroy',$color->id)}}" method="post">@csrf @method('delete')</form>
+                    </div>
+                @empty
+                    <div class="col-12">
+                        <h4>لا يوجد
+                        </h4>
+                    </div>
+                @endforelse
+            </div>
+            <div class="row">
                 <div class="col-12"><h5>صور المنتج</h5></div>
                 <div class="col-12">
                     <form method="post" action="{{route('admin.product_images.store')}}" enctype="multipart/form-data">
@@ -160,7 +199,7 @@
             </div>
         </div>
         <div class="card-footer">
-            <button type="submit" class="btn btn-primary" form="storeForm">ارسال</button>
+            <button type="submit" class="btn btn-primary" form="storeForm">حفظ</button>
         </div>
 
     </div>

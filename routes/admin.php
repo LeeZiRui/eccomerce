@@ -10,5 +10,6 @@ Route::resource('categories','CategoryController');
 Route::resource('tags','TagController');
 Route::resource('products','ProductController');
 Route::resource('product_props','ProductPropController');
+Route::resource('product_colors','ProductColorController');
 Route::resource('product_images','ProductImageController');
 Route::resource('sliders','SliderController');

@@ -20,7 +20,6 @@ class ProductController extends Controller
         $this->validate($request,[
             'title_ar'      =>  'required',
             'title_en'      =>  'required',
-            'quantity'      =>  'required',
             'price'         =>  'required',
             'description_ar'        =>  'required',
             'description_en'        =>  'required',
@@ -43,13 +42,12 @@ class ProductController extends Controller
         $this->validate($request,[
             'title_ar'      =>  'required',
             'title_en'      =>  'required',
-            'quantity'      =>  'required',
             'price'         =>  'required',
             'description_ar'        =>  'required',
             'description_en'        =>  'required',
             'main_image'            =>  'nullable|image',
         ]);
-        $data= $request->except('_token','main_image','tags','key_ar','key_en','value_ar','value_en','sizes');
+        $data= $request->except('_token','main_image','tags','key_ar','key_en','value_ar','value_en','sizes','color_ar','color_en');
         if ($request->hasFile('main_image'))
             $data['main_image'] = Storage::disk('public')->put('images',$request->file('main_image'));
         $product = Product::query()->find($id);
@@ -60,6 +58,8 @@ class ProductController extends Controller
             $product->sizes()->sync($request->get('sizes'));
         if ($request->get( 'key_ar' ) and $request->get( 'key_en' ) and $request->get( 'value_ar' ) and $request->get( 'value_en' ))
             $product->props()->create($request->only('key_ar','key_en','value_ar','value_en'));
+        if ($request->get( 'color_en' ) and $request->get( 'color_ar' ))
+            $product->colors()->create($request->only('color_en','color_ar'));
         return redirect()->route('admin.products.index');
     }
     public function destroy($id){

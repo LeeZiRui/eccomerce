@@ -36,10 +36,6 @@
                         </select>
                     </div>
                     <div class="col-6 form-group">
-                        <label for="">الكمية</label>
-                        <input class="form-control" name="quantity" value="{{old('quantity')}}">
-                    </div>
-                    <div class="col-6 form-group">
                         <label for="">السعر</label>
                         <input class="form-control" name="price" value="{{old('price')}}">
                     </div>
