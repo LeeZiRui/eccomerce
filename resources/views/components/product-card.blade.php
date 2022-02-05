@@ -5,14 +5,14 @@
             <img src="{{asset('storage/'.$product->main_image)}}" alt="IMG-PRODUCT">
 
             <a href="#" class="block2-btn flex-c-m stext-103 cl2 size-102 bg0 bor2 hov-btn1 p-lr-15 trans-04" data-toggle="modal" data-target="#showProductModal{{$product->id}}">
-                Quick View
+                {{__('front.Quick View')}}
             </a>
         </div>
 
         <div class="block2-txt flex-w flex-t p-t-14">
             <div class="block2-txt-child1 flex-col-l ">
                 <a href="product-detail.html" class="stext-104 cl4 hov-cl1 trans-04 js-name-b2 p-b-6">
-                    {{$product->title_en}}
+                    {{$product->title}}
                 </a>
 
                 <span class="stext-105 cl3">
@@ -31,7 +31,7 @@
 </div>
 
 <div class="modal fade" id="showProductModal{{$product->id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" style="min-width: 800px" role="document">
+    <div class="modal-dialog modal-dialog-centered" style="min-width: 800px;margin-top: 10rem" role="document">
         <div class="modal-content">
             <div class=" js-modal1 p-t-60 p-b-20">
                 <div class="overlay-modal1 js-hide-modal1"></div>
@@ -50,7 +50,7 @@
                             <div class="col-md-6 col-lg-5 p-b-30">
                                 <div class="p-r-50 p-t-5 p-lr-0-lg">
                                     <h4 class="mtext-105 cl2 js-name-detail p-b-14">
-                                        {{$product->title_en}}
+                                        {{$product->title}}
                                     </h4>
 
                                     <span class="mtext-106 cl2">
@@ -58,7 +58,7 @@
 							</span>
 
                                     <p class="stext-102 cl3 p-t-23">
-                                        {{$product->description_en}}
+                                        {{$product->description}}
                                     </p>
 
                                     <!--  -->
@@ -66,13 +66,13 @@
                                         @if($product->sizes()->count())
                                         <div class="flex-w flex-r-m p-b-10">
                                             <div class="size-203 flex-c-m respon6">
-                                                Size
+                                                {{__('front.Size')}}
                                             </div>
 
                                             <div class="size-204 respon6-next">
                                                 <div class="rs1-select2 bor8 bg0">
                                                     <select class="js-select2" name="time">
-                                                        <option>اختر المقاس</option>
+                                                        <option>{{__('front.Choose Size')}}</option>
                                                         @foreach($product->sizes as $size)
                                                         <option value="{{$size->value}}">{{$size->value}}</option>
                                                         @endforeach
@@ -82,25 +82,25 @@
                                             </div>
                                         </div>
                                         @endif
-
+                                        @if($product->colors()->count())
                                         <div class="flex-w flex-r-m p-b-10">
                                             <div class="size-203 flex-c-m respon6">
-                                                Color
+                                                {{__('front.Color')}}
                                             </div>
 
                                             <div class="size-204 respon6-next">
                                                 <div class="rs1-select2 bor8 bg0">
                                                     <select class="js-select2" name="time">
-                                                        <option>Choose an option</option>
-                                                        <option>Red</option>
-                                                        <option>Blue</option>
-                                                        <option>White</option>
-                                                        <option>Grey</option>
+                                                        <option>{{__('front.Choose Color')}}</option>
+                                                        @foreach($product->colors as $color)
+                                                            <option value="{{$color->color}}">{{$color->color}}</option>
+                                                        @endforeach
                                                     </select>
                                                     <div class="dropDownSelect2"></div>
                                                 </div>
                                             </div>
                                         </div>
+                                        @endif
 
                                         <div class="flex-w flex-r-m p-b-10">
                                             <div class="size-204 flex-w flex-m respon6-next">
@@ -116,33 +116,13 @@
                                                     </div>
                                                 </div>
 
-                                                <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 js-addcart-detail">
-                                                    Add to cart
-                                                </button>
+                                                <a href="{{route('front.carts.store',['product_id'=>$product->id,'quantity'=>1])}}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 ">
+                                                    {{__('front.Add to cart')}}
+                                                </a>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!--  -->
-                                    <div class="flex-w flex-m p-l-100 p-t-40 respon7">
-                                        <div class="flex-m bor9 p-r-10 m-r-11">
-                                            <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 js-addwish-detail tooltip100" data-tooltip="Add to Wishlist">
-                                                <i class="zmdi zmdi-favorite"></i>
-                                            </a>
-                                        </div>
-
-                                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Facebook">
-                                            <i class="fa fa-facebook"></i>
-                                        </a>
-
-                                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Twitter">
-                                            <i class="fa fa-twitter"></i>
-                                        </a>
-
-                                        <a href="#" class="fs-14 cl3 hov-cl1 trans-04 lh-10 p-lr-5 p-tb-2 m-r-8 tooltip100" data-tooltip="Google Plus">
-                                            <i class="fa fa-google-plus"></i>
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
                         </div>

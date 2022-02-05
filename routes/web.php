@@ -16,7 +16,10 @@ Route::view('/admin','admin.index');
 
 ##### front
 Route::get('/','Front\HomeController@index');
+Route::get('/category/{category}','Front\CategoryController@show')->name('front.category.show');
 Route::get('local',function (){
     session(['local'=>request('local')]);
     return redirect('/');
 });
+Route::get('/carts/add/{product_id}/q/{quantity}','Front\CartController@store')->name('front.carts.store');
+Route::get('/carts','Front\CartController@index')->name('front.carts.index');

@@ -12,4 +12,11 @@ class Category extends Model
     public function sizes(){
         return $this->hasMany(CategorySize::class,'category_id','id');
     }
+    public function products(){
+        return $this->hasMany(Product::class,'category_id','id');
+    }
+    public function getTitleAttribute(){
+        return app()->getLocale() == "ar" ? $this->title_ar:$this->title_en;
+    }
+
 }

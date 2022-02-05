@@ -27,4 +27,10 @@ class Product extends Model
     public function images(){
         return $this->hasMany(ProductImage::class,'product_id','id');
     }
+    public function getTitleAttribute(){
+        return app()->getLocale() == "ar" ? $this->title_ar:$this->title_en;
+    }
+    public function getDescriptionAttribute(){
+        return app()->getLocale() == "ar" ? $this->description_ar:$this->description_en;
+    }
 }
