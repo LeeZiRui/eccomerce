@@ -12,61 +12,36 @@
                 <i class="zmdi zmdi-close"></i>
             </div>
         </div>
-        {!! carts() !!}
         <div class="header-cart-content flex-w js-pscroll">
             <ul class="header-cart-wrapitem w-full">
+                @forelse(carts() as $index => $item)
                 <li class="header-cart-item flex-w flex-t m-b-12">
+                    <a class="btn btn-danger btn-sm" href="{{route('front.carts.destroy',$index)}}">حذف</a>
                     <div class="header-cart-item-img">
-                        <img src="{{asset('fronty')}}/images/item-cart-01.jpg" alt="IMG">
+
+                        <img src="{{asset('storage/'.$item->product->main_image)}}" alt="IMG">
                     </div>
 
                     <div class="header-cart-item-txt p-t-8">
                         <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                            White Shirt Pleat
+                            {{\App\Models\Product::query()->find($item->product->id)->title}}
                         </a>
 
                         <span class="header-cart-item-info">
-								1 x $19.00
+								{{$item->quantity}} x {{$item->product->price}} L.E
 							</span>
                     </div>
                 </li>
-
-                <li class="header-cart-item flex-w flex-t m-b-12">
-                    <div class="header-cart-item-img">
-                        <img src="{{asset('fronty')}}/images/item-cart-02.jpg" alt="IMG">
-                    </div>
-
-                    <div class="header-cart-item-txt p-t-8">
-                        <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                            Converse All Star
-                        </a>
-
-                        <span class="header-cart-item-info">
-								1 x $39.00
-							</span>
-                    </div>
-                </li>
-
-                <li class="header-cart-item flex-w flex-t m-b-12">
-                    <div class="header-cart-item-img">
-                        <img src="{{asset('fronty')}}/images/item-cart-03.jpg" alt="IMG">
-                    </div>
-
-                    <div class="header-cart-item-txt p-t-8">
-                        <a href="#" class="header-cart-item-name m-b-18 hov-cl1 trans-04">
-                            Nixon Porter Leather
-                        </a>
-
-                        <span class="header-cart-item-info">
-								1 x $17.00
-							</span>
-                    </div>
-                </li>
+                @empty
+                    <h3>لا يوجد</h3>
+                @endforelse
             </ul>
 
             <div class="w-full">
                 <div class="header-cart-total w-full p-tb-40">
-                    Total: $75.00
+                    Total: L.E {{carts()->sum(function ($item){
+                                        return $item->quantity * $item->product->price;
+                                    })}}
                 </div>
 
                 <div class="header-cart-buttons flex-w w-full">

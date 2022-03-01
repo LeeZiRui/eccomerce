@@ -13,3 +13,4 @@ Route::resource('product_props','ProductPropController');
 Route::resource('product_colors','ProductColorController');
 Route::resource('product_images','ProductImageController');
 Route::resource('sliders','SliderController');
+Route::resource('orders','OrderController')->only('index','show','update');

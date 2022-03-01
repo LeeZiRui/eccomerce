@@ -25,15 +25,29 @@ if(! function_exists('filterActiveClass')){
 }
 
 if(! function_exists('carts')){
-    function carts($newItem = null){
+    function carts($newItem = null,$size = null,$color = null){
         if ($newItem and $newItem['quantity'] and $newItem['product']){
             $carts = carts();
-            $search = $carts->search(function ($item) use($newItem){
-                return $item->product->id == $newItem['product']->id;
+            $search = $carts->search(function ($item) use($newItem,$size,$color){
+                $con = $item->product->id == $newItem['product']->id;
+//                dd(carts());
+                if (isset($item->size))
+                    $sameSize = $item->size == $size;
+                else{
+                    $sameSize = null == $size;
+                }
+                if (isset($item->color))
+                    $sameColor = $item->color == $color;
+                else{
+                    $sameColor = null == $color;
+                }
+                return $con and $sameColor and $sameSize;
             });
             if ($search !== false){
                 $carts[$search]->quantity+= $newItem['quantity'];
             }else{
+                $newItem['color'] = $color;
+                $newItem['size'] = $size;
                 $carts->push($newItem);
             }
             session(['carts'=>json_encode($carts)]);
@@ -41,5 +55,12 @@ if(! function_exists('carts')){
             $temp = json_decode(session('carts','[]'));
             return  collect($temp);
         }
+    }
+}
+if (! function_exists('cartsTotal')){
+    function cartsTotal(){
+        return carts()->sum(function ($item){
+            return $item->quantity * $item->product->price;
+        });
     }
 }

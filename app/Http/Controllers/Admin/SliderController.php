@@ -28,9 +28,9 @@ class SliderController extends Controller
         return redirect('admin/sliders');
     }
     public function update(Slider $slider, Request $request){
-        $data = $request->except('_token');
+        $data = $request->except('_token','image');
         $this->validate($request,[
-            'image' =>  'sometimes|image'
+            'image' =>  'nullable|image'
         ]);
         if ($request->hasFile('image'))
             $data['image'] = Storage::disk('public')->put('images',$request->file('image'));

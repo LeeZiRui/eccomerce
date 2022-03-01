@@ -62,66 +62,58 @@
                                     </p>
 
                                     <!--  -->
-                                    <div class="p-t-33">
-                                        @if($product->sizes()->count())
-                                        <div class="flex-w flex-r-m p-b-10">
-                                            <div class="size-203 flex-c-m respon6">
-                                                {{__('front.Size')}}
-                                            </div>
-
-                                            <div class="size-204 respon6-next">
-                                                <div class="rs1-select2 bor8 bg0">
-                                                    <select class="js-select2" name="time">
-                                                        <option>{{__('front.Choose Size')}}</option>
-                                                        @foreach($product->sizes as $size)
-                                                        <option value="{{$size->value}}">{{$size->value}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <div class="dropDownSelect2"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endif
-                                        @if($product->colors()->count())
-                                        <div class="flex-w flex-r-m p-b-10">
-                                            <div class="size-203 flex-c-m respon6">
-                                                {{__('front.Color')}}
-                                            </div>
-
-                                            <div class="size-204 respon6-next">
-                                                <div class="rs1-select2 bor8 bg0">
-                                                    <select class="js-select2" name="time">
-                                                        <option>{{__('front.Choose Color')}}</option>
-                                                        @foreach($product->colors as $color)
-                                                            <option value="{{$color->color}}">{{$color->color}}</option>
-                                                        @endforeach
-                                                    </select>
-                                                    <div class="dropDownSelect2"></div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endif
-
-                                        <div class="flex-w flex-r-m p-b-10">
-                                            <div class="size-204 flex-w flex-m respon6-next">
-                                                <div class="wrap-num-product flex-w m-r-20 m-tb-10">
-                                                    <div class="btn-num-product-down cl8 hov-btn3 trans-04 flex-c-m">
-                                                        <i class="fs-16 zmdi zmdi-minus"></i>
+                                    <form action="{{route('front.carts.store',['product_id'=>$product->id,'quantity'=>1])}}">
+                                        <div class="p-t-33">
+                                            @if($product->sizes()->count())
+                                                <div class="flex-w flex-r-m p-b-10">
+                                                    <div class="size-203 flex-c-m respon6">
+                                                        {{__('front.Size')}}
                                                     </div>
 
-                                                    <input class="mtext-104 cl3 txt-center num-product" type="number" name="num-product" value="1">
-
-                                                    <div class="btn-num-product-up cl8 hov-btn3 trans-04 flex-c-m">
-                                                        <i class="fs-16 zmdi zmdi-plus"></i>
+                                                    <div class="size-204 respon6-next">
+                                                        <div class="rs1-select2 bor8 bg0">
+                                                            <select class="js-select2" name="size">
+                                                                <option value="">{{__('front.Choose Size')}}</option>
+                                                                @foreach($product->sizes as $size)
+                                                                    <option value="{{$size->value}}">{{$size->value}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <div class="dropDownSelect2"></div>
+                                                        </div>
                                                     </div>
                                                 </div>
+                                            @endif
+                                            @if($product->colors()->count())
+                                                <div class="flex-w flex-r-m p-b-10">
+                                                    <div class="size-203 flex-c-m respon6">
+                                                        {{__('front.Color')}}
+                                                    </div>
 
-                                                <a href="{{route('front.carts.store',['product_id'=>$product->id,'quantity'=>1])}}" class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 ">
-                                                    {{__('front.Add to cart')}}
-                                                </a>
+                                                    <div class="size-204 respon6-next">
+                                                        <div class="rs1-select2 bor8 bg0">
+                                                            <select class="js-select2" name="color">
+                                                                <option value="">{{__('front.Choose Color')}}</option>
+                                                                @foreach($product->colors as $color)
+                                                                    <option value="{{$color->color}}">{{$color->color}}</option>
+                                                                @endforeach
+                                                            </select>
+                                                            <div class="dropDownSelect2"></div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            @endif
+
+                                            <div class="flex-w flex-r-m p-b-10">
+                                                <div class="size-204 flex-w flex-m respon6-next">
+
+                                                    <button class="flex-c-m stext-101 cl0 size-101 bg1 bor1 hov-btn1 p-lr-15 trans-04 ">
+                                                        {{__('front.Add to cart')}}
+                                                    </button>
+                                                </div>
                                             </div>
                                         </div>
-                                    </div>
+                                    </form>
+
 
                                 </div>
                             </div>

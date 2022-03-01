@@ -23,3 +23,6 @@ Route::get('local',function (){
 });
 Route::get('/carts/add/{product_id}/q/{quantity}','Front\CartController@store')->name('front.carts.store');
 Route::get('/carts','Front\CartController@index')->name('front.carts.index');
+Route::get('/carts/remove/{index}','Front\CartController@destroy')->name('front.carts.destroy');
+Route::post('/carts/update','Front\CartController@update');
+Route::post('/checkout','Front\OrderController@store');

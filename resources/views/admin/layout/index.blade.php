@@ -213,23 +213,11 @@
                                 <p>المنتجات</p>
                             </a>
                         </li>
-                        <li class="nav-item has-treeview">
-                            <a href="#" class="nav-link">
-                                <i class="nav-icon fa fa-plus-square-o"></i>
-                                <p>
-                                    بیشتر
-                                    <i class="fa fa-angle-left right"></i>
-                                </p>
+                        <li class="nav-item">
+                            <a href="{{route('admin.orders.index')}}" class="nav-link">
+                                <i class="fa fa-circle-o nav-icon"></i>
+                                <p>الطلبات</p>
                             </a>
-                            <ul class="nav nav-treeview">
-                                <li class="nav-item">
-                                    <a href="pages/examples/404.html" class="nav-link">
-                                        <i class="fa fa-circle-o nav-icon"></i>
-                                        <p>ارور 404</p>
-                                    </a>
-                                </li>
-
-                            </ul>
                         </li>
 
                     </ul>
