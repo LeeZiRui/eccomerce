@@ -26,3 +26,11 @@ Route::get('/carts','Front\CartController@index')->name('front.carts.index');
 Route::get('/carts/remove/{index}','Front\CartController@destroy')->name('front.carts.destroy');
 Route::post('/carts/update','Front\CartController@update');
 Route::post('/checkout','Front\OrderController@store');
+Route::post('/register','Front\AuthController@register');
+Route::post('/login','Front\AuthController@login');
+Route::get('/logout','Front\AuthController@logout');
+Route::get('order','Front\OrderController@show');
+Route::middleware('auth')->group(function (){
+    Route::get('orders','Front\OrderController@index')->name('orders.index');
+});
+Route::post('contact','Front\ContactController@store');

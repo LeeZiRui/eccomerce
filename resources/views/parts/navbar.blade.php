@@ -12,6 +12,24 @@
                 <!-- Menu desktop -->
                 <div class="menu-desktop">
                     <ul class="main-menu">
+                        @auth
+                            <li>
+                                <a href="{{url('/logout')}}">Logout</a>
+                            </li>
+                            <li>
+                                <a href="{{url('/orders')}}">MY orders</a>
+                            </li>
+                        @else
+                            <li>
+                                <a href="{{url('/order')}}">Find My Order</a>
+                            </li>
+                            <li>
+                                <a href="#loginModal" data-toggle="modal" data-target="#loginModal">Login</a>
+                            </li>
+                            <li>
+                                <a href="#RegisterModal" data-toggle="modal" data-target="#RegisterModal">Register</a>
+                            </li>
+                        @endauth
                         <li>
                             <a href="#">{{__('front.Categories')}}</a>
                             <ul class="sub-menu">
@@ -21,7 +39,7 @@
                             </ul>
                         </li>
                         <li>
-                            <a href="contact.html">Contact</a>
+                            <a href="#contactModal" data-toggle="modal" data-target="#contactModal">Contact US</a>
                         </li>
                         <li>
                             <a href="{{app()->getLocale() == "ar" ? url('local?local=en'):url('local?local=ar')}}">{{app()->getLocale() == "ar" ? "English":"العربية"}}</a>
@@ -44,6 +62,19 @@
                     </div>
                 </div>
             </nav>
+            @if($errors->any())
+                <div class="alert-danger alert">
+                    @foreach($errors->all() as $error=>$message)
+                        <b>{{$message}}</b><br>
+                    @endforeach
+
+                </div>
+            @endif
+            @if(session()->has('success'))
+            <div class="alert-success alert">
+                <b>{!! session('success') !!}</b>
+            </div>
+            @endif
         </div>
     </div>
 
@@ -255,3 +286,106 @@
         </div>
     </div>
 </aside>
+<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Login</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="loginFrom" method="POST" action="{{url('/login')}}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="">email</label>
+                        <input name="email" class="form-control" value="{{old('email')}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">password</label>
+                        <input name="password" type="password" class="form-control" >
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="loginFrom">LogIn</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="contactModal" tabindex="-1" role="dialog" aria-labelledby="contactModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Contact</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="contactFrom" method="POST" action="{{url('/contact')}}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="">name</label>
+                        <input name="name" class="form-control" value="{{old('name')}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">subject</label>
+                        <input name="subject" class="form-control" value="{{old('subject')}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">email</label>
+                        <input name="email" class="form-control" value="{{old('email')}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">message</label>
+                        <textarea name="message" class="form-control" >{{old('message')}}</textarea>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="contactFrom">Send</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="RegisterModal" tabindex="-1" role="dialog" aria-labelledby="RegisterModalTitle" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLongTitle">Register</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <form id="registerForm" method="POST" action="{{url('/register')}}">
+                    @csrf
+                    <div class="form-group">
+                        <label for="">name</label>
+                        <input name="name" class="form-control" value="{{old('name')}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">phone</label>
+                        <input name="phone" class="form-control" value="{{old('phone')}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">email</label>
+                        <input name="email" class="form-control" value="{{old('email')}}">
+                    </div>
+                    <div class="form-group">
+                        <label for="">password</label>
+                        <input name="password" type="password" class="form-control" >
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="registerForm">Register</button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -48,12 +48,14 @@ if(! function_exists('carts')){
             }else{
                 $newItem['color'] = $color;
                 $newItem['size'] = $size;
+                if (auth()->check())
+                    $newItem['user_id'] = auth()->id();
                 $carts->push($newItem);
             }
-            session(['carts'=>json_encode($carts)]);
+            session(['carts_'.auth()->id()=>json_encode($carts)]);
         }else{
-            $temp = json_decode(session('carts','[]'));
-            return  collect($temp);
+            $temp = json_decode(session('carts_'.auth()->id(),'[]'));
+            return  auth()->check() ? collect($temp)->where('user_id',auth()->id()) : collect($temp)->where('user_id',null);
         }
     }
 }

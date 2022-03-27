@@ -18,6 +18,13 @@ class OrderController extends Controller
         return view('admin.orders.show',compact('order'));
     }
     public function update(Order $order){
+        if ($order->status != \request()->status)
+        {
+            $order->tracks()->create([
+                'status'    =>  \request('status'),
+                'message'   =>  \request()->status_notes ?? ('new order status '.\request('status')),
+            ]);
+        }
         $order->update(\request()->only('status'));
         return back();
     }

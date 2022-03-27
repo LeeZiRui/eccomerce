@@ -110,16 +110,19 @@
                                 </p>
 
                                 <div class="p-t-15">
+                                    @auth
+                                        <input type="hidden" name="user_id" value="{{auth()->id()}}">
+                                    @endauth
                                     <div class="bor8 bg0 m-b-12">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="full_name"
+                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="full_name" value="{{auth()->user()->name ?? ""}}"
                                                placeholder=" full name">
                                     </div>
                                     <div class="bor8 bg0 m-b-12">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="email"
+                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="email" value="{{auth()->user()->email ?? ""}}"
                                                placeholder="email">
                                     </div>
                                     <div class="bor8 bg0 m-b-12">
-                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="phone"
+                                        <input class="stext-111 cl8 plh3 size-111 p-lr-15" type="text" name="phone" value="{{auth()->user()->phone ?? ""}}"
                                                placeholder="phone">
                                     </div>
                                     <div class="bor8 bg0 m-b-12">

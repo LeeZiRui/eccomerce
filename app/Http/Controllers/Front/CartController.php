@@ -19,7 +19,7 @@ class CartController extends Controller
     public function destroy($index){
         $carts = carts();
         $carts->forget($index);
-        session(['carts'=>json_encode($carts)]);
+        session(['carts_'.auth()->id()=>json_encode($carts)]);
         return back();
     }
     public function update(){
@@ -29,7 +29,7 @@ class CartController extends Controller
                 $carts[$index]->quantity = $new_quantity;
             }
         }
-        session(['carts'=>json_encode($carts)]);
+        session(['carts_'.auth()->id()=>json_encode($carts)]);
         return back();
     }
 }
