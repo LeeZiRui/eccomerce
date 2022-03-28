@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\AdminNote;
 use App\Models\Order;
 use Illuminate\Http\Request;
 
@@ -24,6 +25,7 @@ class OrderController extends Controller
                 'status'    =>  \request('status'),
                 'message'   =>  \request()->status_notes ?? ('new order status '.\request('status')),
             ]);
+            AdminNote::send(" تغيير حالة طلب ".$order->id," طلب رقم " .$order->id. " تغيرت حالته الي  ".\request()->status);
         }
         $order->update(\request()->only('status'));
         return back();

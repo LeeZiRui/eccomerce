@@ -17,5 +17,6 @@ Route::middleware('admin')->group(function (){
     Route::resource('sliders','SliderController');
     Route::resource('orders','OrderController')->only('index','show','update');
     Route::resource('contacts','ContactController')->only('index','show','update');
+    Route::view('notes','admin.notes');
 });
 
