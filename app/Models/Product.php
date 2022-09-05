@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Database\Factories\ProductFactory;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -9,6 +10,9 @@ class Product extends Model
 {
     use HasFactory;
     protected $guarded = [];
+
+
+
     public function category(){
         return $this->belongsTo(Category::class,'category_id','id');
     }
@@ -33,4 +37,9 @@ class Product extends Model
     public function getDescriptionAttribute(){
         return app()->getLocale() == "ar" ? $this->description_ar:$this->description_en;
     }
+    protected static function newFactory()
+    {
+        return ProductFactory::new();
+    }
+
 }

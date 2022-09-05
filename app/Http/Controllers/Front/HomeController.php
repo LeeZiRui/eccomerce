@@ -5,10 +5,12 @@ namespace App\Http\Controllers\Front;
 use App\Http\Controllers\Controller;
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Debugbar;
 
 class HomeController extends Controller
 {
     public function index(){
+        Debugbar::startMeasure('products', 'get products by filters');
         $products = Product::query()->where(function ($q){
             if (\request()->category_id){
                 $q->whereCategoryId(\request('category_id'));
@@ -51,6 +53,8 @@ class HomeController extends Controller
                 return $item->price;
             }
         });
+        Debugbar::stopMeasure('products');
+        Debugbar::info($products);
         return view('front.home.index',compact('products'));
     }
 }
