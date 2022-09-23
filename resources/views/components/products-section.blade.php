@@ -139,10 +139,12 @@
                 <x-product-card :product="$product"/>
             @endforeach
 
-
         </div>
 
         <!-- Pagination -->
+        <div>
+            {!! $products->links() !!}
+        </div>
         <div class="flex-c-m flex-w w-full p-t-38">
             <a href="#" class="flex-c-m how-pagination1 trans-04 m-all-7 active-pagination1">
                 1

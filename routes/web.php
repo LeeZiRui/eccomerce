@@ -34,3 +34,8 @@ Route::middleware('auth')->group(function (){
     Route::get('orders','Front\OrderController@index')->name('orders.index');
 });
 Route::post('contact','Front\ContactController@store');
+Route::get('products-reporter',function (){
+    $reporter = new \App\Reporters\ProductReporter(new \App\Repositories\ProductRepository());
+    $products = $reporter->limit(20000,new \App\Interfaces\JsonReportFromater());
+    return $products;
+});

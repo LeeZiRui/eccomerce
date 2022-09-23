@@ -64,7 +64,7 @@
                                     <!--  -->
                                     <form action="{{route('front.carts.store',['product_id'=>$product->id,'quantity'=>1])}}">
                                         <div class="p-t-33">
-                                            @if($product->sizes()->count())
+                                            @if($product->sizes_count)
                                                 <div class="flex-w flex-r-m p-b-10">
                                                     <div class="size-203 flex-c-m respon6">
                                                         {{__('front.Size')}}
@@ -83,7 +83,7 @@
                                                     </div>
                                                 </div>
                                             @endif
-                                            @if($product->colors()->count())
+                                            @if($product->colors_count)
                                                 <div class="flex-w flex-r-m p-b-10">
                                                     <div class="size-203 flex-c-m respon6">
                                                         {{__('front.Color')}}
